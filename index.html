@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Martian+Mono&family=Young+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/images/pics/mainIcon.png" type="image/x-icon">
+    <link rel="stylesheet" href="src/css/animations.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
+    <title>new app</title>
+  </head>
+  <body>
+    <div id="modals">
+      <div id="modal0">
+        <div id="modalContents0">
+          <h1>Filters</h1>
+        </div>
+        <div class="dialog">
+          <button class="cancel" id="cancel0">Cancel</button>
+          <button class="confirm" id="confirm0">Save</button>
+        </div>
+      </div>
+      <div id="modal1">
+        <div id="modalContents1">
+          <h1>Settings</h1>
+        </div>
+        <div class="dialog">
+          <button class="cancel" id="cancel1">Cancel</button>
+          <button class="confirm" id="confirm1">Save</button>
+        </div>
+      </div>
+      <div id="modal2">
+        <div id="modalContents2">
+          <h1>Are you sure you want to delete this note?</h1>
+          <div id="dialog2" class="dialog">
+            <button class="cancel" id="cancel2">Cancel</button>
+            <button class="confirm" id="confirm2">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main>
+      <aside id="sideBar">
+        <div id="side0">
+          <button id="button0"><img src="assets/images/icons/dashboard.png" alt="Dashboard icon"></button>
+          <button id="button1"><img src="assets/images/icons/settings.png" alt="Settings icon"></button>
+          <button><img src="assets/images/icons/archive.png" alt="Archive icon"></button>
+          <button><img src="assets/images/icons/package.png" alt="Package icon"></button>
+        </div>
+        <div id="side1">
+          <div id="functional0">
+            <button id="fButton00"><img src="assets/images/icons/tools.png" alt="Tools icon"></button>
+            <button id="fButton01"><img src="assets/images/icons/edit.png" alt="Tools icon"></button>
+            <button id="fButton02"><img src="assets/images/icons/delete.png" alt="Tools icon"></button>
+          </div>
+        </div>
+        <div id="side2">
+          <button><img src="assets/images/icons/logout.png" alt="Logout icon"></button>
+        </div>
+      </aside>
+      <aside id="lastNotesMenu">
+        <h1>Last notes</h1>
+        <div id="lastNotes">
+          <template class="lastNotePattern">
+            <div class="lastNote">
+              <h2>Note name, --/--/----</h2>
+            </div>
+          </template>
+        </div>
+      </aside>
+      <section id="section0">
+        <div class="container">
+          <header>
+            <img id="noteIcon" src="assets/images/pics/mainIcon.png" alt="">
+            <img id="noteLogo" src="assets/images/pics/noteLogo.png" alt="">
+          </header>
+          <nav>
+            <div id="searchArea">
+              <button id="sButton0"><img src="assets/images/icons/menu.png" alt="Menu icon"></button>
+              <input id="searchInput0" type="text" placeholder="Search">
+              <button id="sButton1"><img src="assets/images/icons/tune.png" alt="Tune icon"></button>
+              <button id="sButton2"><img src="assets/images/pics/basicPerson.png" alt="Profile icon"></button>
+            </div>
+            <div id="options">
+              <button id="createNewNote">
+                <img src="assets/images/icons/add.png" alt="Add icon">
+                <span>Create new note</span>
+              </button>
+              <button id="openNote">
+                <img src="assets/images/icons/open.png" alt="Open icon">
+                <span>Open note</span>
+              </button>
+            </div>
+          </nav>
+          <h2 id="notesStatus">Nothing here yet!</h2>
+          <div id="thumbnails">
+            <template class="thumbnailPattern">
+              <div class="thumbnail">
+                <h2 class="thumbnailTitle">New note ${}</h2>
+                <span class="thumbnailText"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+      <aside id="toolBar">
+        <div id="tools">
+          <div class="toolTitle">
+            <h1>Tools</h1>
+          </div>
+          <div class="toolsContainer">
+            <button id="tool0" class="tool">
+              <img src="assets/images/icons/theme.png" alt="Theme icon">
+              <span>Themes</span>
+            </button>
+            <button id="tool1" class="tool">
+              <img src="assets/images/icons/image.png" alt="Add image icon">
+              <span>Add image</span>
+            </button>
+            <button id="tool2" class="tool">
+              <img src="assets/images/icons/scoring.png" alt="Scoring icon">
+              <span>Scoring</span>
+            </button>
+            <button id="tool3" class="tool">
+              <img src="assets/images/icons/font.png" alt="Font icon">
+              <span>Fonts</span>
+            </button>
+            <button id="tool4" class="tool">
+              <img src="assets/images/icons/text.png" alt="Text icon">
+              <span>Text</span>
+            </button>
+            <a id="tool5" class="tool">
+              <img src="assets/images/icons/download.png" alt="Download icon">
+              <span>Download</span>
+            </a>
+          </div>
+        </div>
+        <div id="fToolBar0">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Themes</h1>
+          </div>
+          <div class="toolsContainer">
+            <h2>Colors</h2>
+            <div id="colors">
+              <div id="color0" class="color"><div class="selected"></div></div>
+              <div id="color1" class="color"></div>
+              <div id="color2" class="color"></div>
+              <div id="color3" class="color"></div>
+              <div id="color4" class="color"></div>
+              <div id="color5" class="color"></div>
+              <div id="color6" class="color"></div>
+              <div id="color7" class="color"></div>
+              <div id="color8" class="color"></div>
+              <div id="color9" class="color"></div>
+              <div id="color10" class="color"></div>
+              <div id="color11" class="color"></div>
+              <div id="color12" class="color"></div>
+              <div id="color13" class="color"></div>
+            </div>
+          </div>
+        </div>
+        <div id="fToolBar1">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Add image</h1>
+          </div>
+        </div>
+        <div id="fToolBar2">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Scoring</h1>
+          </div>
+        </div>
+        <div id="fToolBar3">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Fonts</h1>
+          </div>
+          <div class="toolsContainer">
+            <div id="fonts">
+              <button id="font0" class="font">Roboto</button>
+              <button id="font1" class="font">Consolas</button>
+              <button id="font2" class="font">Lato</button>
+              <button id="font3" class="font">Roboto Condensed</button>
+              <button id="font4" class="font">Young Serif</button>
+              <button id="font5" class="font">Martian Mono</button>
+            </div>
+          </div>
+        </div>
+        <div id="fToolBar4">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Text</h1>
+          </div>
+        </div>
+      </aside>
+      <div id="notes">
+        <template class="notePattern">
+          <section class="note">
+            <div class="container">
+              <div class="noteContainer">
+                <input class="noteNameInput">
+                <textarea class="noteArea" rows="1" cols="50"></textarea>
+              </div>
+            </div>
+          </section>
+        </template>
+      </div>
+    </main>
+    <div id="overlay"></div>
+    <script src="src/js/main.js"></script>
+    <script src="src/js/security.js"></script>
+  </body>
+</html>

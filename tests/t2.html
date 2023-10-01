@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikacja do tworzenia pliku tekstowego</title>
+    <style>
+        /* Dodatkowy styl CSS do formatowania */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #text-input {
+            width: 80%;
+            padding: 10px;
+        }
+        #download-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aplikacja do tworzenia pliku tekstowego</h1>
+    
+    <textarea id="text-input" placeholder="Wprowadź tekst"></textarea>
+    <br>
+    <a id="download-button" download="tekst.txt">Pobierz tekst</a>
+
+    <script>
+        // Obsługa kliknięcia przycisku "Pobierz tekst"
+        document.getElementById('download-button').addEventListener('click', function() {
+            var textToDownload = document.getElementById('text-input').value;
+            var blob = new Blob([textToDownload], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
+            
+            var a = document.getElementById('download-button');
+            a.href = url;
+        });
+    </script>
+</body>
+</html>

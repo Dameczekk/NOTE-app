@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja do Rysowania</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #app {
+            text-align: center;
+        }
+
+        canvas {
+            border: 2px solid #000;
+        }
+
+        #controls {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        input[type="color"] {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <canvas id="canvas"></canvas>
+        <div id="controls">
+            <button id="clear-button">Wyczyść</button>
+            <input type="color" id="color-picker" value="#000000">
+            <button id="eraser-button">Gumka</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const clearButton = document.getElementById("clear-button");
+        const colorPicker = document.getElementById("color-picker");
+        const eraserButton = document.getElementById("eraser-button");
+
+        let drawing = false;
+        let erasing = false;
+
+        canvas.width = 800;
+        canvas.height = 400;
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#000000";
+
+        canvas.addEventListener("mousedown", () => {
+            drawing = true;
+            ctx.beginPath();
+        });
+
+        canvas.addEventListener("mouseup", () => {
+            drawing = false;
+            ctx.closePath();
+        });
+
+        canvas.addEventListener("mousemove", draw);
+
+        clearButton.addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        colorPicker.addEventListener("change", (e) => {
+            ctx.strokeStyle = e.target.value;
+        });
+
+        eraserButton.addEventListener("click", () => {
+            erasing = !erasing;
+            if (erasing) {
+                ctx.strokeStyle = "#ffffff";
+            } else {
+                ctx.strokeStyle = colorPicker.value;
+            }
+        });
+
+        function draw(e) {
+            if (!drawing) return;
+            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        }
+    </script>
+</body>
+</html>
