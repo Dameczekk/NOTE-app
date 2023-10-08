@@ -1,8 +1,11 @@
 const createNewNoteButton = document.querySelector('#createNewNote');
 const section0 = document.querySelector('#section0');
+const section1 = document.querySelector('#section1');
 
 const button0 = document.querySelector('#button0');
 const button1 = document.querySelector('#button1');
+const button2 = document.querySelector('#button2');
+const button3 = document.querySelector('#button3');
 
 const cancel0 = document.querySelector('#cancel0');
 const cancel1 = document.querySelector('#cancel1');
@@ -23,8 +26,9 @@ const back = document.querySelectorAll('.return');
 
 const tool0 = document.querySelector('#tool0');
 const tool5 = document.querySelector('#tool5');
+const tool6 = document.querySelector('#tool6');
 
-let sections = ['section0'];
+let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
 
@@ -106,6 +110,7 @@ const createNewThumbnail = () => {
     selectedItemId = parseInt(thumbnail.getAttribute('id').split('thumbnail')[1]);
     switchSection('section0', `note${selectedItemId}`);
     functionalButtons('0', 'open');
+    showToolBar();
     goDown();
   });
 
@@ -137,17 +142,18 @@ const createNewNote = () => {
   createNewSection();
   createNewThumbnail();
   saveDatas();
+  showToolBar();
 
   notes++;
   selectedItemId = (newNoteId - 1);
 
-  notes != 0 ? updateNotesStatus('my') : '';
+  notes != 0 ? updateNotesStatus('my') : updateNotesStatus('nothing');
 }
 
 createNewNoteButton.addEventListener('click', () => {
   createNewNote();
 
-  switchSection('section0', sections[newNoteId]);
+  switchSection('section0', sections[(newNoteId + 1)]);
   functionalButtons('0', 'open');
 });
 
@@ -173,15 +179,7 @@ const switchSection = (from, to) => {
 }
 
 button0.addEventListener('click', () => {
-  const noteArea = document.querySelector(`#note${selectedItemId} .noteArea`);
-  const noteNameInput = document.querySelector(`#note${selectedItemId} .noteNameInput`);
-
-  if (noteArea.value == '' && noteNameInput.value == '') {
-    deleteNote();
-  } else {
-    hideToolBar();
-  }
-
+  hideToolBar('manual');
   switchSection('all', 'section0');
   functionalButtons('0', 'close');
   toolBarVisible = true;
@@ -310,11 +308,13 @@ confirm2.addEventListener('click', () => {
 
 const toolBar = document.querySelector('#toolBar');
 
-const hideToolBar = () => {
+const hideToolBar = (type) => {
   toolBar.style.transform = 'translate(-320px)';
-  setTimeout(() => {
-    document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
-  }, 1);
+  if (type == 'manual') {
+    setTimeout(() => {
+      document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
+    }, 1);
+  }
   resetToInitialState();
 }
 
@@ -329,7 +329,7 @@ fButton00.addEventListener('click', () => {
   if (toolBarVisible) {
     showToolBar();
   } else {
-    hideToolBar();
+    hideToolBar('manual');
   }
 
   toolBarVisible = !toolBarVisible;
@@ -341,7 +341,8 @@ const fToolBars = [
   document.querySelector('#fToolBar1'),
   document.querySelector('#fToolBar2'),
   document.querySelector('#fToolBar3'),
-  document.querySelector('#fToolBar4')
+  document.querySelector('#fToolBar4'),
+  document.querySelector('#fToolBar5')
 ];
 
 function switchArea(index) {
@@ -418,6 +419,10 @@ tool5.addEventListener('click', () => {
   a.href = url;
 });
 
+tool6.addEventListener('click', () => {
+  switchArea('5');
+});
+
 const goDown = () => {
   const note = document.querySelector(`#note${selectedItemId}`);
   const textareaInsideElement = note.querySelector('.noteArea');
@@ -467,3 +472,36 @@ const updateNotesStatus = (action) => {
     notesStatus.textContent = 'My notes';
   }
 }
+
+button3.addEventListener('click', () => {
+  switchSection('all', 'section1');
+  functionalButtons('0', 'close');
+  hideToolBar();
+});
+
+const widthInput = document.querySelector('#widthInput');
+const heightInput = document.querySelector('#heightInput');
+
+widthInput.addEventListener('input', () => {
+  document.querySelector(`#thumbnail${selectedItemId}`).style.width = widthInput.value + 'px';
+});
+
+heightInput.addEventListener('input', () => {
+  document.querySelector(`#thumbnail${selectedItemId}`).style.height = heightInput.value + 'px';
+});
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+  });
+}
+
+const load0 = document.querySelector('#load0');
+
+load0.addEventListener('click', () => {
+  loadScript('modules/terminal.js');
+});

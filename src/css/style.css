@@ -161,7 +161,7 @@ nav {
   overflow-y: scroll;
   width: 95%;
   height: 490px;
-  padding: 5px 0 10px 0;
+  padding: 5px 0 100px 0;
 }
 #thumbnails::-webkit-scrollbar-track {
   background-color: transparent;
@@ -336,7 +336,8 @@ nav {
 }
 
 #modal0,
-#modal1 {
+#modal1,
+#modal3 {
   z-index: 4;
   position: fixed;
   display: none;
@@ -493,7 +494,8 @@ nav {
 #fToolBar1,
 #fToolBar2,
 #fToolBar3,
-#fToolBar4 {
+#fToolBar4,
+#fToolBar5 {
   position: fixed;
   width: 100%;
   transform: translateX(300px);
@@ -636,8 +638,102 @@ nav {
 #font5 {font-family: Martian Mono;}
 #font6 {font-family: Young Serif;}
 
-.selectedFont {
+.selectedFont { background-color: var(--leadingColor); }
+
+#notesStatus {margin: 10px 0 0 0;}
+
+#section1 { display: none; }
+
+.extensionsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.extensionsContainer h1 {
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
   background-color: var(--leadingColor);
 }
 
-#notesStatus {margin: 10px 0 0 0;}
+#modules {
+  height: 100%;
+  padding: 10px;
+  border: 2px solid var(--leadingColor);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #ffffff6b;
+}
+
+.module {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ffffff;
+  border: 2px solid #f0f0f0;
+}
+
+.module div {
+  display: flex;
+  align-items: center;
+}
+
+.module img {
+  width: 40px;
+  height: 40px;
+}
+
+.load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin: 0 2.5px 0 2.5px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid var(--leadingColor);
+  background-color: #000000;
+  color: #ffffff;
+  transition: 0.3s background ease-in-out;
+}
+.load:hover {
+  background-color: var(--leadingColor2);
+  transition: 0.3s background ease-in-out;
+}
+
+#fToolBar5 input {
+  outline: 0;
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 2.5px 0;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  border: 2px solid #f0f0f0;
+}
+
+.inputArea {
+  display: flex;
+  align-items: center;
+}
+
+.inputArea label {
+  margin: 0 0 0 5px;
+  font-size: 18px;
+}
+
+#modalContents3 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#extensionArea0 { display: none; }

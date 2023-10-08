@@ -1,44 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Aplikacja do tworzenia pliku tekstowego</title>
+    <title>Czat AI</title>
     <style>
-        /* Dodatkowy styl CSS do formatowania */
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
         }
-        #text-input {
-            width: 80%;
+
+        .chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .chat-box {
+            max-height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
+            margin-bottom: 10px;
         }
-        #download-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: #fff;
+
+        .message {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
             border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Aplikacja do tworzenia pliku tekstowego</h1>
-    
-    <textarea id="text-input" placeholder="Wprowadź tekst"></textarea>
-    <br>
-    <a id="download-button" download="tekst.txt">Pobierz tekst</a>
-
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <div class="message">Witaj! Jak mogę ci dzisiaj pomóc?</div>
+        </div>
+        <input type="text" id="user-input" placeholder="Napisz wiadomość...">
+        <button id="send-button">Wyślij</button>
+    </div>
     <script>
-        // Obsługa kliknięcia przycisku "Pobierz tekst"
-        document.getElementById('download-button').addEventListener('click', function() {
-            var textToDownload = document.getElementById('text-input').value;
-            var blob = new Blob([textToDownload], { type: 'text/plain' });
-            var url = URL.createObjectURL(blob);
-            
-            var a = document.getElementById('download-button');
-            a.href = url;
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        function addMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'message user' : 'message ai';
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function handleUserInput() {
+            const userMessage = userInput.value.trim();
+            if (userMessage === '') return;
+
+            addMessage(userMessage, true);
+            userInput.value = '';
+
+            setTimeout(() => {
+                const aiMessage = 'Przepraszam, nie jestem w stanie odpowiedzieć teraz.';
+                addMessage(aiMessage, false);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000); // Odpowiedź AI z opóźnieniem
+        }
+
+        sendButton.addEventListener('click', handleUserInput);
+        userInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                handleUserInput();
+            }
         });
+
+        // Witajowa wiadomość AI
+        setTimeout(() => {
+            const aiMessage = 'Witaj! Jak mogę ci dzisiaj pomóc?';
+            addMessage(aiMessage, false);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
     </script>
 </body>
 </html>

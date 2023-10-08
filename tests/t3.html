@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #video {
+            width: 100%;
+            max-width: 400px;
+        }
+        #captureButton {
+            margin-top: 16px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" autoplay></video>
+    <button id="captureButton">Zrób zdjęcie</button>
+    <canvas style="display: none;" id="canvas"></canvas>
+
+    <script>
+        // Uzyskaj dostęp do kamery użytkownika
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Błąd podczas uzyskiwania dostępu do kamery:', error);
+            });
+
+        const captureButton = document.getElementById('captureButton');
+        captureButton.addEventListener('click', function () {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            // Ustaw rozmiar płótna na rozmiar wideo
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Narysuj obraz z kamery na płótno
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Pobierz dane jako obraz typu JPEG
+            const imageDataURL = canvas.toDataURL('image/jpeg');
+
+            // Utwórz link do pobrania obrazu
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageDataURL;
+            downloadLink.download = 'moje_zdjecie.jpeg';
+
+            // Kliknij link, aby rozpocząć pobieranie obrazu
+            downloadLink.click();
+        });
+    </script>
+</body>
+</html>

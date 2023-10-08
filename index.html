@@ -43,14 +43,19 @@
           </div>
         </div>
       </div>
+      <div id="modal3">
+        <div id="modalContents3">
+          <h1>Checking for update</h1>
+        </div>
+      </div>
     </div>
     <main>
       <aside id="sideBar">
         <div id="side0">
           <button id="button0"><img src="assets/images/icons/dashboard.png" alt="Dashboard icon"></button>
           <button id="button1"><img src="assets/images/icons/settings.png" alt="Settings icon"></button>
-          <button><img src="assets/images/icons/archive.png" alt="Archive icon"></button>
-          <button><img src="assets/images/icons/package.png" alt="Package icon"></button>
+          <button id="button2"><img src="assets/images/icons/archive.png" alt="Archive icon"></button>
+          <button id="button3"><img src="assets/images/icons/package.png" alt="Package icon"></button>
         </div>
         <div id="side1">
           <div id="functional0">
@@ -91,10 +96,6 @@
                 <img src="assets/images/icons/add.png" alt="Add icon">
                 <span>Create new note</span>
               </button>
-              <button id="openNote">
-                <img src="assets/images/icons/open.png" alt="Open icon">
-                <span>Open note</span>
-              </button>
             </div>
           </nav>
           <h2 id="notesStatus">Nothing here yet!</h2>
@@ -105,6 +106,36 @@
                 <span class="thumbnailText"></span>
               </div>
             </template>
+          </div>
+        </div>
+      </section>
+      <section id="section1">
+        <div class="container">
+          <div class="extensionsContainer">
+            <h1>Extensions</h1>
+            <div id="modules">
+              <div class="module">
+                <div>
+                  <img src="assets/images/icons/terminal.png" alt="Terminal icon">
+                  <span>Terminal</span>
+                </div>
+                <button id="load0" class="load">Load</button>
+              </div>
+              <div class="module">
+                <div>
+                  <img src="assets/images/icons/paint.png" alt="Paint icon">
+                  <span>Paint</span>
+                </div>
+                <button id="load1" class="load">Load</button>
+              </div>
+              <div class="module">
+                <div>
+                  <img src="assets/images/icons/link.png" alt="Link icon">
+                  <span>Links</span>
+                </div>
+                <button id="load3" class="load">Load</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -138,6 +169,10 @@
               <img src="assets/images/icons/download.png" alt="Download icon">
               <span>Download</span>
             </a>
+            <button id="tool6" class="tool">
+              <img src="assets/images/icons/size.png" alt="Size icon">
+              <span>Size</span>
+            </button>
           </div>
         </div>
         <div id="fToolBar0">
@@ -197,6 +232,22 @@
           <div class="toolTitle">
             <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
             <h1>Text</h1>
+          </div>
+        </div>
+        <div id="fToolBar5">
+          <div class="toolTitle">
+            <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
+            <h1>Size</h1>
+          </div>
+          <div class="toolsContainer">
+            <div class="inputArea">
+              <input value="150" type="number" id="widthInput" placeholder="width" min="150" max="500">
+              <label for="widthInput">px</label>
+            </div>
+            <div class="inputArea">
+              <input value="150" type="number" id="heightInput" placeholder="height" min="150" max="500">
+              <label for="heightInput">px</label>
+            </div>
           </div>
         </div>
       </aside>
