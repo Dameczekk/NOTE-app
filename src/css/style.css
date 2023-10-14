@@ -235,6 +235,7 @@ nav {
 .note {
   overflow-y: scroll;
   scroll-behavior: smooth;
+  padding: 0 0 30px 0;
 }
 .note::-webkit-scrollbar-track {
   background-color: transparent;
@@ -414,7 +415,7 @@ nav {
   position: fixed;
   width: 300px;
   height: 100%;
-  background-color: #ffffffe4;
+  background-color: #ffffff;
   border: 2px solid var(--leadingColor);
   transform: translateX(-300px);
   transition: transform 0.5s ease;
@@ -755,3 +756,16 @@ nav {
 }
 
 #fToolBar4 h2 {margin: 10px 0 10px 0;}
+
+#shortCuts {
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 30px;
+  background-color: #ffffff;
+  border: 2px solid var(--leadingColor);
+  transition: margin 0.5s ease;
+}

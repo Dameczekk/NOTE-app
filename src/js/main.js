@@ -318,6 +318,7 @@ const hideToolBar = (type) => {
   if (type == 'manual') {
     setTimeout(() => {
       document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
+      document.querySelector(`#note${selectedItemId} #shortCuts`).style.margin = '0 0 0 61px';
     }, 1);
   }
   resetToInitialState();
@@ -327,6 +328,7 @@ const showToolBar = () => {
   toolBar.style.transform = 'translate(62px)';
   setTimeout(() => {
     document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 372px';
+    document.querySelector(`#note${selectedItemId} #shortCuts`).style.margin = '0 0 0 361px';
   }, 1);
 }
 
