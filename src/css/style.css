@@ -726,7 +726,7 @@ nav {
 }
 
 .inputArea label {
-  margin: 0 0 0 5px;
+  margin: 0 5px 0 5px;
   font-size: 18px;
 }
 
@@ -737,3 +737,19 @@ nav {
 }
 
 #extensionArea0 { display: none; }
+
+.toolsContainer input,
+.toolsContainer select {
+  outline: 0;
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 2.5px 0;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  border: 2px solid #f0f0f0;
+}
+
+.toolsContainer select {
+  width: 175px;
+}

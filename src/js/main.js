@@ -28,6 +28,11 @@ const tool0 = document.querySelector('#tool0');
 const tool5 = document.querySelector('#tool5');
 const tool6 = document.querySelector('#tool6');
 
+const textAlign = document.querySelector('#textAlign');
+const titleAlign = document.querySelector('#titleAlign');
+const lineSpacing = document.querySelector('#lineSpacing');
+const fontSize = document.querySelector('#fontSize');
+
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
@@ -38,7 +43,7 @@ let newThumbnailId = 0;
 let activeNote = null;
 let selectedItemId = null;
 
-let toolBarVisible = true;
+let toolBarVisible = false;
 
 const createNewSection = () => {
   const notePattern = document.querySelector('.notePattern');
@@ -504,4 +509,24 @@ const load0 = document.querySelector('#load0');
 
 load0.addEventListener('click', () => {
   loadScript('modules/terminal.js');
+});
+
+textAlign.addEventListener('input', () => {
+  const note = document.querySelector(`#note${selectedItemId} .noteArea`);
+  note.style.textAlign = textAlign.value;
+});
+
+titleAlign.addEventListener('input', () => {
+  const note = document.querySelector(`#note${selectedItemId} .noteNameInput`);
+  note.style.textAlign = titleAlign.value;
+});
+
+lineSpacing.addEventListener('input', () => {
+  const note = document.querySelector(`#note${selectedItemId} .noteArea`);
+  note.style.lineHeight = lineSpacing.value;
+});
+
+fontSize.addEventListener('input', () => {
+  const note = document.querySelector(`#note${selectedItemId} .noteArea`);
+  note.style.fontSize = fontSize.value + 'px';
 });
