@@ -527,6 +527,9 @@ lineSpacing.addEventListener('input', () => {
 });
 
 fontSize.addEventListener('input', () => {
-  const note = document.querySelector(`#note${selectedItemId} .noteArea`);
-  note.style.fontSize = fontSize.value + 'px';
+  const noteArea = document.querySelector(`#note${selectedItemId} .noteArea`);
+  const noteNameInput = document.querySelector(`#note${selectedItemId} .noteNameInput`);
+
+  noteNameInput.style.fontSize = (fontSize.value * 1.2) + 'px';
+  noteArea.style.fontSize = fontSize.value + 'px';
 });

@@ -10,44 +10,36 @@
 
         #custom-textarea {
             width: 100%;
-            height: 100px; /* Dostosuj wysokość do swoich potrzeb */
+            height: 200px; /* Dostosuj wysokość do swoich potrzeb */
             padding: 5px;
             font-size: 16px;
             border: 1px solid #ccc;
+        }
+
+        #cursor-position {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
         }
     </style>
 </head>
 <body>
     <div class="textarea-container">
-        <textarea id="custom-textarea"></textarea>
-        <div>
-            <button onclick="applyFormatting('bold')"><b>B</b></button>
-            <button onclick="applyFormatting('underline')"><u>U</u></button>
-            <button onclick="applyFormatting('italic')"><i>I</i></button>
-        </div>
+        <textarea id="custom-textarea" oninput="updateCursorPosition()" onmousemove="updateCursorPosition()" onkeyup="updateCursorPosition()"></textarea>
+        <div id="cursor-position">Wiersz: 1, Kolumna: 1</div>
     </div>
     <script>
         const textarea = document.getElementById("custom-textarea");
+        const cursorPosition = document.getElementById("cursor-position");
 
-        function applyFormatting(command) {
-            const selectionStart = textarea.selectionStart;
-            const selectionEnd = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(selectionStart, selectionEnd);
-            
-            const textBefore = textarea.value.substring(0, selectionStart);
-            const textAfter = textarea.value.substring(selectionEnd);
+        function updateCursorPosition() {
+            const cursorIndex = textarea.selectionStart;
+            const textBeforeCursor = textarea.value.substr(0, cursorIndex);
+            const lineNumber = (textBeforeCursor.match(/\n/g) || []).length + 1;
+            const lastNewLineIndex = textBeforeCursor.lastIndexOf("\n");
+            const columnNumber = cursorIndex - lastNewLineIndex;
 
-            switch (command) {
-                case 'bold':
-                    textarea.value = textBefore + `<b>${selectedText}</b>` + textAfter;
-                    break;
-                case 'underline':
-                    textarea.value = textBefore + `<u>${selectedText}</u>` + textAfter;
-                    break;
-                case 'italic':
-                    textarea.value = textBefore + `<i>${selectedText}</i>` + textAfter;
-                    break;
-            }
+            cursorPosition.textContent = `Wiersz: ${lineNumber}, Kolumna: ${columnNumber}`;
         }
     </script>
 </body>
