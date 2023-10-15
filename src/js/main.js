@@ -33,6 +33,8 @@ const titleAlign = document.querySelector('#titleAlign');
 const lineSpacing = document.querySelector('#lineSpacing');
 const fontSize = document.querySelector('#fontSize');
 
+const switch0 = document.querySelector('#switch0');
+
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
@@ -42,8 +44,12 @@ let newNoteId = 0;
 let newThumbnailId = 0;
 let activeNote = null;
 let selectedItemId = null;
+let lineNumber = 0;
+let columnNumber = 0;
+let scoringAllow = false;
 
 let toolBarVisible = false;
+let switch0Toggle = true;
 
 const createNewSection = () => {
   const notePattern = document.querySelector('.notePattern');
@@ -70,8 +76,39 @@ const createNewSection = () => {
 
   newNoteId++;
 
-  noteArea.addEventListener('input', function () {
-    this.style.height = (this.scrollHeight) + 'px';
+  const handleInputEvent = () => {
+    const cursorIndex = noteArea.selectionStart;
+    const textBeforeCursor = noteArea.value.substr(0, cursorIndex);
+    const lastNewLineIndex = textBeforeCursor.lastIndexOf("\n");
+    lineNumber = (textBeforeCursor.match(/\n/g) || []).length + 1;
+    columnNumber = cursorIndex - lastNewLineIndex;
+
+    marker.textContent = `Ln: ${lineNumber}, Col ${columnNumber}, Marks ${noteArea.value.length}`;
+    noteArea.style.height = (noteArea.scrollHeight) + 'px';
+  };
+
+  noteArea.addEventListener('input', handleInputEvent);
+  noteArea.addEventListener('click', handleInputEvent);
+  noteArea.addEventListener('keyup', handleInputEvent);
+
+  noteArea.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      if (scoringAllow) {
+        event.preventDefault();
+        const cursorIndex = noteArea.selectionStart;
+        const textBeforeCursor = noteArea.value.substr(0, cursorIndex);
+        const textAfterCursor = noteArea.value.substr(cursorIndex);
+        const scoring = document.querySelector('#scoring');
+    
+        const newText = textBeforeCursor + `\n${scoring.value} ` + textAfterCursor;
+    
+        noteArea.value = newText;
+    
+        const newCursorIndex = cursorIndex + 3;
+        noteArea.selectionStart = newCursorIndex;
+        noteArea.selectionEnd = newCursorIndex;
+      }
+    }
   });
 
   noteNameInput.addEventListener('input', () => {
@@ -318,7 +355,6 @@ const hideToolBar = (type) => {
   if (type == 'manual') {
     setTimeout(() => {
       document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
-      document.querySelector(`#note${selectedItemId} #shortCuts`).style.margin = '0 0 0 61px';
     }, 1);
   }
   resetToInitialState();
@@ -328,7 +364,6 @@ const showToolBar = () => {
   toolBar.style.transform = 'translate(62px)';
   setTimeout(() => {
     document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 372px';
-    document.querySelector(`#note${selectedItemId} #shortCuts`).style.margin = '0 0 0 361px';
   }, 1);
 }
 
@@ -535,3 +570,24 @@ fontSize.addEventListener('input', () => {
   noteNameInput.style.fontSize = (fontSize.value * 1.2) + 'px';
   noteArea.style.fontSize = fontSize.value + 'px';
 });
+
+switch0.addEventListener('click', () => {
+  const circle = switch0.querySelector('.circle');
+  const scoring = document.querySelector('#scoring');
+
+  if (switch0Toggle) {
+    circle.style.margin = '0 0 0 60%';
+    circle.style.background = 'var(--leadingColor)';
+    switch0.style.background = 'var(--leadingColor2)';
+    scoring.style.border = '2px solid var(--leadingColor)';
+    scoringAllow = true;
+  } else {
+    circle.style.margin = '0';
+    circle.style.background = '';
+    switch0.style.background = '';
+    scoring.style.border = '';
+    scoringAllow = false;
+  }
+
+  switch0Toggle = !switch0Toggle;
+})

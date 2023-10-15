@@ -103,7 +103,7 @@
             <template class="thumbnailPattern">
               <div class="thumbnail">
                 <h2 class="thumbnailTitle">New note ${}</h2>
-                <span class="thumbnailText"></span>
+                <textarea class="thumbnailText" readonly></textarea>
               </div>
             </template>
           </div>
@@ -141,38 +141,43 @@
       </section>
       <aside id="toolBar">
         <div id="tools">
-          <div class="toolTitle">
-            <h1>Tools</h1>
+          <div>
+            <div class="toolTitle">
+              <h1>Tools</h1>
+            </div>
+            <div class="toolsContainer">
+              <button id="tool0" class="tool">
+                <img src="assets/images/icons/theme.png" alt="Theme icon">
+                <span>Themes</span>
+              </button>
+              <button id="tool1" class="tool">
+                <img src="assets/images/icons/image.png" alt="Add image icon">
+                <span>Add image</span>
+              </button>
+              <button id="tool2" class="tool">
+                <img src="assets/images/icons/scoring.png" alt="Scoring icon">
+                <span>Scoring</span>
+              </button>
+              <button id="tool3" class="tool">
+                <img src="assets/images/icons/font.png" alt="Font icon">
+                <span>Fonts</span>
+              </button>
+              <button id="tool4" class="tool">
+                <img src="assets/images/icons/text.png" alt="Text icon">
+                <span>Text</span>
+              </button>
+              <a id="tool5" class="tool">
+                <img src="assets/images/icons/download.png" alt="Download icon">
+                <span>Download</span>
+              </a>
+              <button id="tool6" class="tool">
+                <img src="assets/images/icons/size.png" alt="Size icon">
+                <span>Size</span>
+              </button>
+            </div>
           </div>
-          <div class="toolsContainer">
-            <button id="tool0" class="tool">
-              <img src="assets/images/icons/theme.png" alt="Theme icon">
-              <span>Themes</span>
-            </button>
-            <button id="tool1" class="tool">
-              <img src="assets/images/icons/image.png" alt="Add image icon">
-              <span>Add image</span>
-            </button>
-            <button id="tool2" class="tool">
-              <img src="assets/images/icons/scoring.png" alt="Scoring icon">
-              <span>Scoring</span>
-            </button>
-            <button id="tool3" class="tool">
-              <img src="assets/images/icons/font.png" alt="Font icon">
-              <span>Fonts</span>
-            </button>
-            <button id="tool4" class="tool">
-              <img src="assets/images/icons/text.png" alt="Text icon">
-              <span>Text</span>
-            </button>
-            <a id="tool5" class="tool">
-              <img src="assets/images/icons/download.png" alt="Download icon">
-              <span>Download</span>
-            </a>
-            <button id="tool6" class="tool">
-              <img src="assets/images/icons/size.png" alt="Size icon">
-              <span>Size</span>
-            </button>
+          <div id="status">
+            <span id="marker">Ln 0, Col 0</span>
           </div>
         </div>
         <div id="fToolBar0">
@@ -210,6 +215,32 @@
           <div class="toolTitle">
             <button class="return"><img src="assets/images/icons/back.png" alt="Back icon"></button>
             <h1>Scoring</h1>
+          </div>
+          <div class="toolsContainer">
+            <div class="inputArea">
+              <select id="scoring">
+                <option value="•">•</option>
+                <option value="°">°</option>
+                <option value="-">-</option>
+                <option value="–">–</option>
+                <option value="—">—</option>
+                <option value="→">→</option>
+                <option value="←">←</option>
+                <option value="§">§</option>
+                <option value="+">+</option>
+                <option value="÷">÷</option>
+                <option value="›">›</option>
+                <option value="‹">‹</option>
+                <option value="♪">♪</option>
+                <option value="⁕">⁕</option>
+                <option value="⁜">⁜</option>
+                <option value="⁙">⁙</option>
+                <option value="⁛">⁛</option>
+                <option value="⌁">⌁</option>
+                <option value="†">†</option>
+              </select>
+              <button id="switch0" class="switch"><div class="circle"></div></button>
+            </div>
           </div>
         </div>
         <div id="fToolBar3">
@@ -313,8 +344,6 @@
                 <input class="noteNameInput">
                 <textarea class="noteArea" rows="1" cols="50"></textarea>
               </div>
-            </div>
-            <div id="shortCuts">
             </div>
           </section>
         </template>

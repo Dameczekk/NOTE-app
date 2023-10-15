@@ -201,6 +201,16 @@ nav {
   border-radius: 10px;
 }
 
+.thumbnailText {
+  border: 0;
+  outline: 0;
+  width: 150px;
+  height: 100%;
+  cursor: pointer;
+  resize: none;
+  background-color: transparent;
+}
+
 .noteNameInput {
   outline: 0;
   border: 0;
@@ -214,7 +224,6 @@ nav {
   width: 100%;
   font-size: 20px;
   min-height: 50px;
-  border-radius: 5px;
   resize: none;
   overflow: hidden;
   background-color: transparent;
@@ -483,10 +492,10 @@ nav {
 #tools {
   position: fixed;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
   transform: translateX(0);
   transition: transform 0.5s;
 }
@@ -753,19 +762,34 @@ nav {
 
 .toolsContainer select {
   width: 175px;
+  transition: border 0.3s ease;
 }
 
 #fToolBar4 h2 {margin: 10px 0 10px 0;}
 
-#shortCuts {
-  z-index: 2;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  display: flex;
+#status {
   width: 100%;
+  padding: 10px;
+  border-top: 2px solid var(--leadingColor);
+}
+
+#fToolBar2 .switch {margin: 0 0 0 10px;}
+
+.switch {
+  border: 0;
+  width: 60px;
   height: 30px;
-  background-color: #ffffff;
-  border: 2px solid var(--leadingColor);
-  transition: margin 0.5s ease;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #e9e9e9;
+  transition: background 0.3s ease;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #d4d4d4;
+  transition: margin 0.3s ease, background 0.3s ease;
 }
