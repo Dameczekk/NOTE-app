@@ -10,8 +10,10 @@ const button3 = document.querySelector('#button3');
 const cancel0 = document.querySelector('#cancel0');
 const cancel1 = document.querySelector('#cancel1');
 const cancel2 = document.querySelector('#cancel2');
+const cancel3 = document.querySelector('#cancel3');
 
 const confirm2 = document.querySelector('#confirm2');
+const confirm3 = document.querySelector('#confirm3');
 
 const fButton00 = document.querySelector('#fButton00');
 const fButton01 = document.querySelector('#fButton01');
@@ -35,13 +37,18 @@ const fontSize = document.querySelector('#fontSize');
 
 const switch0 = document.querySelector('#switch0');
 
+const addCategoryButton = document.querySelector('#addCategoryButton');
+const categoryButton0 = document.querySelector('#categoryButton0');
+
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
+let categoryButtons = [categoryButton0];
 
 let notes = 0;
 let newNoteId = 0;
 let newThumbnailId = 0;
+let newCategoryId = 1;
 let activeNote = null;
 let selectedItemId = null;
 let lineNumber = 0;
@@ -591,3 +598,61 @@ switch0.addEventListener('click', () => {
 
   switch0Toggle = !switch0Toggle;
 })
+
+addCategoryButton.addEventListener('click', () => {
+  openModal('4');
+});
+
+cancel3.addEventListener('click', () => {
+  const nameCategoryinput = document.querySelector('#nameCategoryInput');
+
+  closeModal('4');
+  setTimeout(() => {
+    nameCategoryinput.value = '';
+  }, 500);
+});
+
+const createCategoryButton = () => {
+  const categories = document.querySelector('#categoryButtons');
+  const categoryButtonPattern = document.querySelector('.categoryButtonPattern');
+  const el = categoryButtonPattern.content.cloneNode(true);
+  const categoryButton = el.querySelector('.categoryButton');
+  const nameCategoryinput = document.querySelector('#nameCategoryInput');
+
+  categoryButton.setAttribute('id', `categoryButton${newCategoryId}`);
+  categoryButton.textContent = nameCategoryinput.value;
+
+  categories.appendChild(el);
+
+  categoryButtons.push(document.querySelector(`#categoryButton${newCategoryId}`));
+
+
+  newCategoryId++;
+}
+
+const createCategoryArea = () => {
+
+}
+
+const createNewCategory = () => {
+  createCategoryButton();
+}
+
+for (let i = 0; i < categoryButtons.length; i++) {
+  categoryButtons[i].addEventListener('click', () => {
+    for (let j = 0; j < categoryButtons.length; j++) {
+      categoryButtons[j].style.backgroundColor = '#ffffff';
+    }
+    categoryButtons[i].style.backgroundColor = 'var(--leadingColor2)';
+  });
+}
+
+confirm3.addEventListener('click', () => {
+  const nameCategoryinput = document.querySelector('#nameCategoryInput');
+
+  createNewCategory();
+  closeModal('4');
+  setTimeout(() => {
+    nameCategoryinput.value = '';
+  }, 500);
+});

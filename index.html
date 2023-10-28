@@ -48,6 +48,16 @@
           <h1>Checking for update</h1>
         </div>
       </div>
+      <div id="modal4">
+        <div id="modalContents4">
+          <h1>Add new category</h1>
+          <input id="nameCategoryInput" placeholder="Name this category" type="text">
+          <div id="dialog4" class="dialog">
+            <button class="cancel" id="cancel3">Cancel</button>
+            <button class="confirm" id="confirm3">Add</button>
+          </div>
+        </div>
+      </div>
     </div>
     <main>
       <aside id="sideBar">
@@ -98,6 +108,15 @@
               </button>
             </div>
           </nav>
+          <div id="categories">
+            <div id="categoryButtons">
+              <button id="categoryButton0" class="categoryButton">main</button>
+              <template class="categoryButtonPattern">
+                <button class="categoryButton"></button>
+              </template>
+            </div>
+            <button id="addCategoryButton" class="categoryButton"><img src="assets/images/icons/add.png" alt="Add category icon"></button>
+          </div>
           <h2 id="notesStatus">Nothing here yet!</h2>
           <div id="thumbnails">
             <template class="thumbnailPattern">
@@ -237,7 +256,6 @@
                 <option value="⁙">⁙</option>
                 <option value="⁛">⁛</option>
                 <option value="⌁">⌁</option>
-                <option value="†">†</option>
               </select>
               <button id="switch0" class="switch"><div class="circle"></div></button>
             </div>
@@ -350,6 +368,11 @@
       </div>
     </main>
     <div id="overlay"></div>
+    <div id="startScreen">
+      <img id="logos" src="assets/images/others/logos.png" alt="Start logo">
+      <img id="hr" src="assets/images/others/hr.png" alt="hr">
+    </div>
+    <script src="src/js/start.js"></script>
     <script src="src/js/main.js"></script>
     <script src="src/js/security.js"></script>
   </body>

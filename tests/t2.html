@@ -1,46 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przycisk z animacją wypełniania</title>
     <style>
-        .textarea-container {
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .button-container {
             position: relative;
-            width: 300px; /* Dostosuj szerokość do swoich potrzeb */
-            margin: 0 auto;
         }
 
-        #custom-textarea {
-            width: 100%;
-            height: 200px; /* Dostosuj wysokość do swoich potrzeb */
-            padding: 5px;
+        button {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid #007BFF;
+            color: #007BFF;
             font-size: 16px;
-            border: 1px solid #ccc;
+            cursor: pointer;
+            overflow: hidden;
         }
 
-        #cursor-position {
+        .button-fill {
             position: absolute;
-            bottom: 5px;
-            right: 5px;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #007BFF;
+            transition: width 0.3s ease;
+        }
+
+        button:hover .button-fill {
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="textarea-container">
-        <textarea id="custom-textarea" oninput="updateCursorPosition()" onmousemove="updateCursorPosition()" onkeyup="updateCursorPosition()"></textarea>
-        <div id="cursor-position">Wiersz: 1, Kolumna: 1</div>
+    <div class="button-container">
+        <button>Kliknij mnie
+            <div class="button-fill"></div>
+        </button>
     </div>
-    <script>
-        const textarea = document.getElementById("custom-textarea");
-        const cursorPosition = document.getElementById("cursor-position");
-
-        function updateCursorPosition() {
-            const cursorIndex = textarea.selectionStart;
-            const textBeforeCursor = textarea.value.substr(0, cursorIndex);
-            const lineNumber = (textBeforeCursor.match(/\n/g) || []).length + 1;
-            const lastNewLineIndex = textBeforeCursor.lastIndexOf("\n");
-            const columnNumber = cursorIndex - lastNewLineIndex;
-
-            cursorPosition.textContent = `Wiersz: ${lineNumber}, Kolumna: ${columnNumber}`;
-        }
-    </script>
 </body>
 </html>
