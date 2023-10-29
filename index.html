@@ -117,13 +117,26 @@
             </div>
             <button id="addCategoryButton" class="categoryButton"><img src="assets/images/icons/add.png" alt="Add category icon"></button>
           </div>
-          <h2 id="notesStatus">Nothing here yet!</h2>
-          <div id="thumbnails">
-            <template class="thumbnailPattern">
-              <div class="thumbnail">
-                <h2 class="thumbnailTitle">New note ${}</h2>
-                <textarea class="thumbnailText" readonly></textarea>
+          <div id="categoryAreas">
+            <div id="categoryArea0" class="categoryArea">
+              <h2 id="notesStatus">Nothing here yet!</h2>
+              <div id="thumbnails">
+                <template class="thumbnailPattern">
+                  <div class="thumbnail">
+                    <h2 class="thumbnailTitle">New note ${}</h2>
+                    <textarea class="thumbnailText" readonly></textarea>
+                  </div>
+                </template>
               </div>
+            </div>
+            <template class="categoryAreaPattern">
+              <div class="categoryArea">
+                <h2 class="noteStatus"></h2>
+                <div class="thumbnails"></div>
+              </div>
+            </template>
+            <template class="categoryAreaPattern">
+              <div class="categoryArea"></div>
             </template>
           </div>
         </div>

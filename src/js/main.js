@@ -39,11 +39,13 @@ const switch0 = document.querySelector('#switch0');
 
 const addCategoryButton = document.querySelector('#addCategoryButton');
 const categoryButton0 = document.querySelector('#categoryButton0');
+const categoryArea0 = document.querySelector('#categoryArea0');
 
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
 let categoryButtons = [categoryButton0];
+let categoryAreas = [categoryArea0];
 
 let notes = 0;
 let newNoteId = 0;
@@ -54,6 +56,7 @@ let selectedItemId = null;
 let lineNumber = 0;
 let columnNumber = 0;
 let scoringAllow = false;
+let activeCategory = null;
 
 let toolBarVisible = false;
 let switch0Toggle = true;
@@ -228,7 +231,7 @@ const switchSection = (from, to) => {
 }
 
 button0.addEventListener('click', () => {
-  hideToolBar('manual');
+  hideToolBar();
   switchSection('all', 'section0');
   functionalButtons('0', 'close');
   toolBarVisible = true;
@@ -626,25 +629,45 @@ const createCategoryButton = () => {
 
   categoryButtons.push(document.querySelector(`#categoryButton${newCategoryId}`));
 
+  const handleCategoryButtonClick = (event) => {
+    categoryButtons.forEach((button) => {
+        button.style.backgroundColor = '#ffffff';
+    });
 
-  newCategoryId++;
+    event.target.style.backgroundColor = 'var(--leadingColor2)';
+
+    console.log(`Kliknięto przycisk kategorii: ${event.target.textContent}`);
+    activeCategory = parseInt(event.target.getAttribute('id').split('categoryButton')[1]);
+
+    document.querySelectorAll('.categoryArea').forEach(e => {
+      e.style.display = 'block';
+    });
+    document.querySelector(`#categoryArea${activeCategory}`).style.display = 'block';
+  };
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener('click', handleCategoryButtonClick);
+  });
 }
 
 const createCategoryArea = () => {
+  const categories = document.querySelector('#categoryAreas');
+  const categoryAreaPattern = document.querySelector('.categoryAreaPattern');
+  const el = categoryAreaPattern.content.cloneNode(true);
+  const categoryArea = el.querySelector('.categoryArea');
 
+  categoryArea.setAttribute('id', `categoryArea${newCategoryId}`);
+
+  categoryAreas.push(document.querySelector(`#categoryArea${newCategoryId}`));
+
+  categories.appendChild(el);
 }
 
 const createNewCategory = () => {
   createCategoryButton();
-}
+  createCategoryArea();
 
-for (let i = 0; i < categoryButtons.length; i++) {
-  categoryButtons[i].addEventListener('click', () => {
-    for (let j = 0; j < categoryButtons.length; j++) {
-      categoryButtons[j].style.backgroundColor = '#ffffff';
-    }
-    categoryButtons[i].style.backgroundColor = 'var(--leadingColor2)';
-  });
+  newCategoryId++;
 }
 
 confirm3.addEventListener('click', () => {

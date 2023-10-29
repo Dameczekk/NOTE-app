@@ -154,7 +154,7 @@ nav {
 #createNewNote span,
 #openNote span { margin: 0 0 0 5px; }
 
-#thumbnails {
+.thumbnails {
   position: fixed;
   display: flex;
   flex-wrap: wrap;
@@ -883,3 +883,13 @@ nav {
   background-color: #ffffff;
   border: 2px solid #f0f0f0;
 }
+
+.categoryArea {
+  display: none;
+}
+
+#categoryArea0 {
+  display: block;
+}
+
+

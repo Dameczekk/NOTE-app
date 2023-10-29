@@ -10,4 +10,12 @@
   #toolBar {
     position: absolute;
   }
+
+  #logos {
+    width: 300px;
+  }
+
+  #searchArea {
+    width: 200px;
+  }
 }
