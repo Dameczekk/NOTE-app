@@ -163,14 +163,14 @@ nav {
   height: 490px;
   padding: 5px 0 100px 0;
 }
-#thumbnails::-webkit-scrollbar-track {
+.thumbnails::-webkit-scrollbar-track {
   background-color: transparent;
 }
-#thumbnails::-webkit-scrollbar {
+.thumbnails::-webkit-scrollbar {
   width: 10px;
   background-color: transparent;
 }
-#thumbnails::-webkit-scrollbar-thumb {
+.thumbnails::-webkit-scrollbar-thumb {
   background-color: var(--leadingColor);
   border-radius: 10px;
 }
@@ -827,9 +827,14 @@ nav {
   border-radius: 5px;
   background-color: #ffffff;
   border: 2px solid var(--leadingColor);
+  transition: background 0.3s ease;
 }
 
-#categoryButtons { display: flex; }
+#categoryButtons { 
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
 #addCategoryButton {
   padding: 5px;
@@ -844,7 +849,9 @@ nav {
   background-color: var(--leadingColor2);
 }
 
-#categories { display: flex; } 
+#categories { display: flex;
+  flex-wrap: wrap;
+ } 
 
 #modal4 {
   z-index: 4;
@@ -892,4 +899,6 @@ nav {
   display: block;
 }
 
-
+.noteStatus {
+  margin: 10px 0 5px 0;
+}

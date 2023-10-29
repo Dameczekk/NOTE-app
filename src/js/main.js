@@ -56,7 +56,7 @@ let selectedItemId = null;
 let lineNumber = 0;
 let columnNumber = 0;
 let scoringAllow = false;
-let activeCategory = null;
+let activeCategory = 0;
 
 let toolBarVisible = false;
 let switch0Toggle = true;
@@ -83,8 +83,6 @@ const createNewSection = () => {
   setTimeout(() => {
     noteContainer.style.animation = 'none';
   }, 500);
-
-  newNoteId++;
 
   const handleInputEvent = () => {
     const cursorIndex = noteArea.selectionStart;
@@ -136,7 +134,7 @@ const createNewSection = () => {
 const createNewThumbnail = () => {
   const notePattern = document.querySelector('.thumbnailPattern');
   const el = notePattern.content.cloneNode(true);
-  const thumbnails = document.querySelector('#thumbnails');
+  const thumbnails = document.querySelector(`#thumbnails${activeCategory}`);
 
   const thumbnail = el.querySelector('.thumbnail');
   const thumbnailTitle = el.querySelector('.thumbnailTitle');
@@ -155,8 +153,6 @@ const createNewThumbnail = () => {
   setTimeout(() => {
     thumbnail.style.animation = 'none';
   }, 500);
-
-  newThumbnailId++;
 
   thumbnail.addEventListener('click', () => {
     selectedItemId = parseInt(thumbnail.getAttribute('id').split('thumbnail')[1]);
@@ -197,9 +193,9 @@ const createNewNote = () => {
   showToolBar();
 
   notes++;
+  newNoteId++;
+  newThumbnailId++;
   selectedItemId = (newNoteId - 1);
-
-  notes != 0 ? updateNotesStatus('my') : updateNotesStatus('nothing');
 }
 
 createNewNoteButton.addEventListener('click', () => {
@@ -334,7 +330,7 @@ fButton02.addEventListener('click', () => openModal('2'));
 cancel2.addEventListener('click', () => closeModal('2'));
 
 const deleteNote = () => {
-  const thumbnails = document.querySelector('#thumbnails');
+  const thumbnails = document.querySelector(`#thumbnails${activeCategory}`);
   const notes = document.querySelector('#notes');
 
   const thumbnail = document.querySelector(`#thumbnail${selectedItemId}`);
@@ -615,6 +611,19 @@ cancel3.addEventListener('click', () => {
   }, 500);
 });
 
+const switchCategory = () => {
+  const allCategories = document.querySelectorAll('.categoryArea');
+  const active = document.querySelector(`#categoryArea${activeCategory}`);
+
+  allCategories.forEach(e => {
+    e.style.display = 'none';
+  });
+
+  active.style.display = 'block';
+}
+
+
+
 const createCategoryButton = () => {
   const categories = document.querySelector('#categoryButtons');
   const categoryButtonPattern = document.querySelector('.categoryButtonPattern');
@@ -636,11 +645,10 @@ const createCategoryButton = () => {
 
     event.target.style.backgroundColor = 'var(--leadingColor2)';
 
-    console.log(`Kliknięto przycisk kategorii: ${event.target.textContent}`);
     activeCategory = parseInt(event.target.getAttribute('id').split('categoryButton')[1]);
 
     document.querySelectorAll('.categoryArea').forEach(e => {
-      e.style.display = 'block';
+      e.style.display = 'none';
     });
     document.querySelector(`#categoryArea${activeCategory}`).style.display = 'block';
   };
@@ -654,9 +662,14 @@ const createCategoryArea = () => {
   const categories = document.querySelector('#categoryAreas');
   const categoryAreaPattern = document.querySelector('.categoryAreaPattern');
   const el = categoryAreaPattern.content.cloneNode(true);
+
   const categoryArea = el.querySelector('.categoryArea');
+  const noteStatus = el.querySelector('.noteStatus');
+  const thumbnails = el.querySelector('.thumbnails');
 
   categoryArea.setAttribute('id', `categoryArea${newCategoryId}`);
+  noteStatus.setAttribute('id', `noteStatus${newCategoryId}`);
+  thumbnails.setAttribute('id', `thumbnails${newCategoryId}`);
 
   categoryAreas.push(document.querySelector(`#categoryArea${newCategoryId}`));
 

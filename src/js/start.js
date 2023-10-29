@@ -7,7 +7,7 @@ const sleep = ms => {
 }
 
 const start = async () => {
-  await sleep(200);
+  await sleep(400);
   hr.style.width = '200px';
   await sleep(800);
   startScreen.style.opacity = '0';

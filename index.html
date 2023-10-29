@@ -51,7 +51,7 @@
       <div id="modal4">
         <div id="modalContents4">
           <h1>Add new category</h1>
-          <input id="nameCategoryInput" placeholder="Name this category" type="text">
+          <input maxlength="30" id="nameCategoryInput" placeholder="Name this category" type="text">
           <div id="dialog4" class="dialog">
             <button class="cancel" id="cancel3">Cancel</button>
             <button class="confirm" id="confirm3">Add</button>
@@ -119,8 +119,8 @@
           </div>
           <div id="categoryAreas">
             <div id="categoryArea0" class="categoryArea">
-              <h2 id="notesStatus">Nothing here yet!</h2>
-              <div id="thumbnails">
+              <h2 id="notesStatus0" class="noteStatus">Nothing here yet!</h2>
+              <div id="thumbnails0" class="thumbnails">
                 <template class="thumbnailPattern">
                   <div class="thumbnail">
                     <h2 class="thumbnailTitle">New note ${}</h2>
@@ -129,15 +129,14 @@
                 </template>
               </div>
             </div>
+
             <template class="categoryAreaPattern">
               <div class="categoryArea">
-                <h2 class="noteStatus"></h2>
+                <h2 class="noteStatus">Nothing here yet!</h2>
                 <div class="thumbnails"></div>
               </div>
             </template>
-            <template class="categoryAreaPattern">
-              <div class="categoryArea"></div>
-            </template>
+
           </div>
         </div>
       </section>
