@@ -1,77 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-  #context-menu {
-    display: none;
-    position: absolute;
-    background: #fff;
-    border: 1px solid #ccc;
-    list-style: none;
-    padding: 0;
-  }
-
-  #context-menu li {
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-
-  #context-menu li:hover {
-    background: #f0f0f0;
-  }
-</style>
+    <title>Przykład ładowania i wyłączania CSS za pomocą JavaScript</title>
 </head>
 <body>
-<div id="context-menu">
-  <ul>
-    <li id="delete">Delete</li>
-    <li id="archive">Archive</li>
-    <li id="view">View</li>
-    <li id="info">Info</li>
-  </ul>
-</div>
+    <button id="toggleCSSButton">Załaduj / Wyłącz CSS</button>
+    <script>
+        var cssLoaded = false; // Zmienna do śledzenia, czy CSS jest obecnie załadowane
 
-<div class="note" oncontextmenu="showContextMenu(event);">Sample Note 1</div>
-<div class="note" oncontextmenu="showContextMenu(event);">Sample Note 2</div>
+        // Funkcja do dynamicznego ładowania lub wyłączania pliku CSS
+        function toggleCSS() {
+            var link = document.getElementById("dynamicCSS"); // Sprawdzamy, czy istnieje arkusz stylów
 
-<script>
-const contextMenu = document.getElementById('context-menu');
+            if (cssLoaded) {
+                // Jeśli arkusz stylów istnieje, usuwamy go
+                link.parentNode.removeChild(link);
+                cssLoaded = false;
+            } else {
+                // Jeśli arkusz stylów nie istnieje, tworzymy go i dodajemy
+                link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.type = "text/css";
+                link.href = "src/css/darktheme.css"; // Ścieżka do pliku CSS
+                link.id = "dynamicCSS"; // Nadajemy ID dla późniejszego odniesienia
 
-function showContextMenu(event) {
-  event.preventDefault();
-  contextMenu.style.left = `${event.clientX}px`;
-  contextMenu.style.top = `${event.clientY}px`;
-  contextMenu.style.display = 'block';
-}
+                // Dodajemy link do sekcji head dokumentu
+                document.head.appendChild(link);
+                cssLoaded = true;
+            }
+        }
 
-document.addEventListener('click', () => {
-  contextMenu.style.display = 'none';
-});
-
-// Dodaj obsługę opcji menu kontekstowego
-const deleteOption = document.getElementById('delete');
-deleteOption.addEventListener('click', () => {
-  alert('Opcja Delete została kliknięta');
-  contextMenu.style.display = 'none';
-});
-
-const archiveOption = document.getElementById('archive');
-archiveOption.addEventListener('click', () => {
-  alert('Opcja Archive została kliknięta');
-  contextMenu.style.display = 'none';
-});
-
-const viewOption = document.getElementById('view');
-viewOption.addEventListener('click', () => {
-  alert('Opcja View została kliknięta');
-  contextMenu.style.display = 'none';
-});
-
-const infoOption = document.getElementById('info');
-infoOption.addEventListener('click', () => {
-  alert('Opcja Info została kliknięta');
-  contextMenu.style.display = 'none';
-});
-</script>
+        // Obsługa zdarzenia kliknięcia przycisku
+        var toggleCSSButton = document.getElementById("toggleCSSButton");
+        toggleCSSButton.addEventListener("click", toggleCSS);
+    </script>
 </body>
 </html>

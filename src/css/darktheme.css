@@ -17,7 +17,13 @@ section, nav {
 #addCategoryButton img,
 .module img { filter: invert(100%); }
 
-#context-menu { background: #252525d4; }
+#context-menu {
+  background: #252525;
+  color: #ffffff;
+}
+#context-menu ul li:hover {
+  background-color: #656565;
+}
 
 .font,
 .noteStatus,

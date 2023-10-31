@@ -751,7 +751,6 @@ const captureData = () => {
 
   m5NoteName.textContent = title;
   creationDate.textContent = 'Creation date ' + date;
-  start();
 }
 
 cancel4.addEventListener('click', () =>  closeModal('5'));
