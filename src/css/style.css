@@ -902,3 +902,26 @@ nav {
 .noteStatus {
   margin: 10px 0 5px 0;
 }
+
+#context-menu {
+  z-index: 3;
+  display: none;
+  position: absolute;
+  list-style: none;
+  width: 200px;
+  padding: 0;
+  border-radius: 5px;
+  background: #fff;
+  border: 1px solid var(--leadingColor);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#context-menu li {
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#context-menu li:hover {
+  background: #f0f0f0;
+}

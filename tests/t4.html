@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  #context-menu {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0;
+  }
+
+  #context-menu li {
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  #context-menu li:hover {
+    background: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+<div id="context-menu">
+  <ul>
+    <li id="delete">Delete</li>
+    <li id="archive">Archive</li>
+    <li id="view">View</li>
+    <li id="info">Info</li>
+  </ul>
+</div>
+
+<div class="note" oncontextmenu="showContextMenu(event);">Sample Note 1</div>
+<div class="note" oncontextmenu="showContextMenu(event);">Sample Note 2</div>
+
+<script>
+const contextMenu = document.getElementById('context-menu');
+
+function showContextMenu(event) {
+  event.preventDefault();
+  contextMenu.style.left = `${event.clientX}px`;
+  contextMenu.style.top = `${event.clientY}px`;
+  contextMenu.style.display = 'block';
+}
+
+document.addEventListener('click', () => {
+  contextMenu.style.display = 'none';
+});
+
+// Dodaj obsługę opcji menu kontekstowego
+const deleteOption = document.getElementById('delete');
+deleteOption.addEventListener('click', () => {
+  alert('Opcja Delete została kliknięta');
+  contextMenu.style.display = 'none';
+});
+
+const archiveOption = document.getElementById('archive');
+archiveOption.addEventListener('click', () => {
+  alert('Opcja Archive została kliknięta');
+  contextMenu.style.display = 'none';
+});
+
+const viewOption = document.getElementById('view');
+viewOption.addEventListener('click', () => {
+  alert('Opcja View została kliknięta');
+  contextMenu.style.display = 'none';
+});
+
+const infoOption = document.getElementById('info');
+infoOption.addEventListener('click', () => {
+  alert('Opcja Info została kliknięta');
+  contextMenu.style.display = 'none';
+});
+</script>
+</body>
+</html>

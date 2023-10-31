@@ -59,3 +59,8 @@
   from { transform: translate(-50%, -50%) scale(1); }
   to { transform: translate(-50%, -50%) scale(0); }
 }
+
+@keyframes textContent {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

@@ -178,6 +178,25 @@ const createNewThumbnail = () => {
       }
     }
   });
+
+  const contextMenu = document.getElementById("context-menu");
+
+  thumbnail.addEventListener("contextmenu", (e) => {
+    contextMenu.style.animation = 'openModal 0.3s forwards';
+    e.preventDefault();
+    contextMenu.style.left = `${e.clientX}px`;
+    contextMenu.style.top = `${e.clientY}px`;
+    contextMenu.style.display = "block";
+
+    selectedItemId = parseInt(thumbnail.getAttribute('id').split('thumbnail')[1]);
+  });
+
+  document.addEventListener('click', () => {
+    contextMenu.style.animation = 'closeModal 0.3s forwards';
+    setTimeout(() => {
+      contextMenu.style.display = 'none'
+    }, 300);
+  });
 }
 
 const saveDatas = () => {
@@ -691,4 +710,17 @@ confirm3.addEventListener('click', () => {
   setTimeout(() => {
     nameCategoryinput.value = '';
   }, 500);
+});
+
+const menuDelete = document.querySelector('#delete');
+const menuArchive = document.querySelector('#archive');
+const menuView = document.querySelector('#view');
+const menuInfo = document.querySelector('#info');
+
+menuDelete.addEventListener('click', () => openModal('2'));
+menuView.addEventListener('click', () => {
+  switchSection('section0', `note${selectedItemId}`);
+  functionalButtons('0', 'open');
+  showToolBar();
+  goDown();
 });
