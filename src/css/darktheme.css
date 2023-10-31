@@ -1,0 +1,49 @@
+section, nav {
+  background-color: #252525d4;
+}
+
+#tools,
+.toolTitle,
+.tool,
+#toolBar {
+  background-color: #252525d4;
+  color: #ffffff;
+}
+
+.tool img,
+.return img,
+#sButton0 img,
+#sButton1 img,
+#addCategoryButton img,
+.module img { filter: invert(100%); }
+
+#context-menu { background: #252525d4; }
+
+.font,
+.noteStatus,
+#searchInput0 { color: #ffffff; }
+
+.categoryButton { color: #ffffff; }
+
+.module {
+  background-color: #252525d4;
+  color: #ffffff;
+}
+
+#modules { background-color: #252525d4; }
+
+#modal0,
+#modal1,
+#modal2,
+#modal3,
+#modal4,
+#modal5 {
+  background-color: #505050;
+  color: #ffffff;
+}
+
+input,
+select {
+  background-color: #444444d4;
+  border: 2px solid #252525d4;
+}

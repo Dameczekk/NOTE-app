@@ -1,3 +1,5 @@
+const root = document.querySelector(':root');
+
 const createNewNoteButton = document.querySelector('#createNewNote');
 const section0 = document.querySelector('#section0');
 const section1 = document.querySelector('#section1');
@@ -11,9 +13,11 @@ const cancel0 = document.querySelector('#cancel0');
 const cancel1 = document.querySelector('#cancel1');
 const cancel2 = document.querySelector('#cancel2');
 const cancel3 = document.querySelector('#cancel3');
+const cancel4 = document.querySelector('#cancel4');
 
 const confirm2 = document.querySelector('#confirm2');
 const confirm3 = document.querySelector('#confirm3');
+const confirm4 = document.querySelector('#confirm4');
 
 const fButton00 = document.querySelector('#fButton00');
 const fButton01 = document.querySelector('#fButton01');
@@ -36,10 +40,17 @@ const lineSpacing = document.querySelector('#lineSpacing');
 const fontSize = document.querySelector('#fontSize');
 
 const switch0 = document.querySelector('#switch0');
+const switch1 = document.querySelector('#switch1');
 
 const addCategoryButton = document.querySelector('#addCategoryButton');
 const categoryButton0 = document.querySelector('#categoryButton0');
 const categoryArea0 = document.querySelector('#categoryArea0');
+
+const menuDelete = document.querySelector('#delete');
+const menuArchive = document.querySelector('#archive');
+const menuView = document.querySelector('#view');
+const menuInfo = document.querySelector('#info');
+const menuEdit = document.querySelector('#edit');
 
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
@@ -56,6 +67,7 @@ let selectedItemId = null;
 let lineNumber = 0;
 let columnNumber = 0;
 let scoringAllow = false;
+let darkThemeAllow = false;
 let activeCategory = 0;
 
 let toolBarVisible = false;
@@ -184,8 +196,8 @@ const createNewThumbnail = () => {
   thumbnail.addEventListener("contextmenu", (e) => {
     contextMenu.style.animation = 'openModal 0.3s forwards';
     e.preventDefault();
-    contextMenu.style.left = `${e.clientX}px`;
-    contextMenu.style.top = `${e.clientY}px`;
+    contextMenu.style.left = `${e.clientX + 100}px`;
+    contextMenu.style.top = `${e.clientY - 100}px`;
     contextMenu.style.display = "block";
 
     selectedItemId = parseInt(thumbnail.getAttribute('id').split('thumbnail')[1]);
@@ -199,7 +211,7 @@ const createNewThumbnail = () => {
   });
 }
 
-const saveDatas = () => {
+const saveDates = () => {
   let date = new Date();
 
   dates.push(date.getDate() + ' ' + (date.getMonth() + 1) + ' '+ date.getFullYear());
@@ -208,7 +220,7 @@ const saveDatas = () => {
 const createNewNote = () => {
   createNewSection();
   createNewThumbnail();
-  saveDatas();
+  saveDates();
   showToolBar();
 
   notes++;
@@ -246,7 +258,7 @@ const switchSection = (from, to) => {
 }
 
 button0.addEventListener('click', () => {
-  hideToolBar();
+  hideToolBar('manual');
   switchSection('all', 'section0');
   functionalButtons('0', 'close');
   toolBarVisible = true;
@@ -377,10 +389,12 @@ const toolBar = document.querySelector('#toolBar');
 
 const hideToolBar = (type) => {
   toolBar.style.transform = 'translate(-320px)';
-  if (type == 'manual') {
-    setTimeout(() => {
-      document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
-    }, 1);
+  if (selectedItemId != null) {
+    if (type == 'manual') {
+      setTimeout(() => {
+        document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
+      }, 1);
+    }
   }
   resetToInitialState();
 }
@@ -641,8 +655,6 @@ const switchCategory = () => {
   active.style.display = 'block';
 }
 
-
-
 const createCategoryButton = () => {
   const categories = document.querySelector('#categoryButtons');
   const categoryButtonPattern = document.querySelector('.categoryButtonPattern');
@@ -659,7 +671,7 @@ const createCategoryButton = () => {
 
   const handleCategoryButtonClick = (event) => {
     categoryButtons.forEach((button) => {
-        button.style.backgroundColor = '#ffffff';
+        button.style.backgroundColor = '#ffffff00';
     });
 
     event.target.style.backgroundColor = 'var(--leadingColor2)';
@@ -712,15 +724,87 @@ confirm3.addEventListener('click', () => {
   }, 500);
 });
 
-const menuDelete = document.querySelector('#delete');
-const menuArchive = document.querySelector('#archive');
-const menuView = document.querySelector('#view');
-const menuInfo = document.querySelector('#info');
-
 menuDelete.addEventListener('click', () => openModal('2'));
 menuView.addEventListener('click', () => {
+  switchSection('section0', `note${selectedItemId}`);
+  functionalButtons('0', 'open');
+  document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
+  goDown();
+});
+menuEdit.addEventListener('click', () => {
   switchSection('section0', `note${selectedItemId}`);
   functionalButtons('0', 'open');
   showToolBar();
   goDown();
 });
+menuInfo.addEventListener('click', () => {
+  captureData();
+  openModal('5');
+});
+
+const captureData = () => {
+  const m5NoteName = document.querySelector('#m5NoteName');
+  const creationDate = document.querySelector('#creationDate');
+
+  const title = document.querySelector(`#note${selectedItemId} .noteNameInput`).value;
+  const date = dates[selectedItemId];
+
+  m5NoteName.textContent = title;
+  creationDate.textContent = 'Creation date ' + date;
+  start();
+}
+
+cancel4.addEventListener('click', () =>  closeModal('5'));
+confirm4.addEventListener('click', () =>  closeModal('5'));
+
+switch1.addEventListener('click', () => {
+  const circle = switch1.querySelector('.circle');
+  const toolBar = document.querySelector('#toolBar');
+
+  if (switch0Toggle) {
+    circle.style.margin = '0 0 0 60%';
+    circle.style.background = 'var(--leadingColor)';
+    switch1.style.background = 'var(--leadingColor2)';
+    darkThemeAllow = true;
+  } else {
+    circle.style.margin = '0';
+    circle.style.background = '';
+    switch1.style.background = '';
+    darkThemeAllow = false;
+  }
+
+  if (darkThemeAllow) {
+    start();
+    setTimeout(() => {
+      toggleCSS();
+    }, 1300);
+  } else {
+    start();
+    setTimeout(() => {
+      toggleCSS();
+    }, 1300);
+  }
+  switch0Toggle = !switch0Toggle;
+})
+
+let cssLoaded = false;
+
+function toggleCSS() {
+  let link = document.getElementById("dynamicCSS");
+
+  if (cssLoaded) {
+
+    link.parentNode.removeChild(link);
+    cssLoaded = false;
+  } else {
+
+    link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = "src/css/darktheme.css";
+    link.id = "dynamicCSS";
+
+    document.head.appendChild(link);
+    cssLoaded = true;
+  }
+}

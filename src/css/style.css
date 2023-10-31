@@ -297,7 +297,7 @@ nav {
 }
 
 #sButton0 img, 
-#sButton1 { filter: invert(40%); }
+#sButton1 img { filter: invert(40%); }
 
 #sButton2 img {
   border-radius: 100%;
@@ -313,6 +313,7 @@ nav {
   padding: 10px;
   box-shadow: var(--shadow);
   background-color: var(--leadingColor2);
+  border: 2px solid var(--leadingColor);
   transform: translateX(-300px);
   transition: transform 0.5s ease;
 }
@@ -672,7 +673,7 @@ nav {
   border: 2px solid var(--leadingColor);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  background-color: #ffffff6b;
+  background-color: #ffffff;
 }
 
 .module {
@@ -795,7 +796,7 @@ nav {
 }
 
 #startScreen {
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -804,7 +805,7 @@ nav {
   width: 100%;
   height: 100%;
   background-color: var(--leadingColor);
-  transition: opacity 1s ease;
+  transition: transform 1s ease;
 }
 
 #logos { width: 400px; }
@@ -825,7 +826,7 @@ nav {
   margin: 5px 5px 0 0;
   cursor: pointer;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: #ffffff00;
   border: 2px solid var(--leadingColor);
   transition: background 0.3s ease;
 }
@@ -833,7 +834,6 @@ nav {
 #categoryButtons { 
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
 }
 
 #addCategoryButton {
@@ -925,3 +925,28 @@ nav {
 #context-menu li:hover {
   background: #f0f0f0;
 }
+
+#modal5 {
+  z-index: 4;
+  position: fixed;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 200px;
+  max-width: 90%;
+  max-height: 80vh;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+#dialog5 { top: 75%; }
+
+.elements {
+  display: flex;
+  align-items: center;
+}
+
+.elements label { margin: 0 0 0 5px; }
