@@ -84,7 +84,7 @@ const createNewSection = () => {
   const noteArea = el.querySelector('.noteArea');
   const noteContainer = el.querySelector('.noteContainer');
 
-  noteNameInput.value = 'New note ' + newNoteId;
+  noteNameInput.value = 'New note';
 
   note.setAttribute('id', `note${newNoteId}`);
 
@@ -156,7 +156,7 @@ const createNewThumbnail = () => {
   const thumbnailTitles = el.querySelectorAll('.thumbnailTitle');
   const thumbnailss = el.querySelectorAll('.thumbnail');
 
-  thumbnailTitle.textContent = `New note ${newThumbnailId}`;
+  thumbnailTitle.textContent = 'New note';
 
   thumbnail.setAttribute('id', `thumbnail${newThumbnailId}`);
   Allthumbnails.push(`thumbnail${newThumbnailId}`);
@@ -218,9 +218,15 @@ const saveDates = () => {
   dates.push(date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear());
 }
 
-const createNewNote = () => {
+const noteAvailability = () => {
   const noteStatus = document.querySelector(`#notesStatus${activeCategory}`);
 
+  projectsInCategories[activeCategory] >= 1 
+  ? noteStatus.textContent = 'Your notes'
+  : noteStatus.textContent = 'Nothing here yet!';
+}
+
+const createNewNote = () => {
   createNewSection();
   createNewThumbnail();
   saveDates();
@@ -233,9 +239,7 @@ const createNewNote = () => {
 
   projectsInCategories[activeCategory]++;
 
-  projectsInCategories[activeCategory] >= 1 
-  ? noteStatus.textContent = 'Your notes'
-  : noteStatus.textContent = 'Nothing here yet!';
+  noteAvailability();
 }
 
 createNewNoteButton.addEventListener('click', () => {
@@ -261,7 +265,7 @@ const switchSection = (from, to) => {
       sectionA.style.display = 'none';
       sectionB.style.display = 'block';
     } else {
-      console.log(`Sekcja "${to}" nie istnieje lub została usunięta.`);
+      console.error(`Sekcja "${to}" nie istnieje lub została usunięta.`);
     }
   }
 }
@@ -381,8 +385,15 @@ const deleteNote = () => {
     sections[noteIndex] = '--deleted--';
   }
 
-  notes.removeChild(note);
-  thumbnails.removeChild(thumbnail);
+  thumbnail.style.animation = 'reduce 0.5s forwards';
+  setTimeout(() => {
+    notes.removeChild(note);
+    thumbnails.removeChild(thumbnail);
+  }, 500);
+
+  projectsInCategories[activeCategory]--;
+
+  noteAvailability();
 }
 
 confirm2.addEventListener('click', () => {
@@ -593,7 +604,12 @@ function loadScript(src) {
 const load0 = document.querySelector('#load0');
 
 load0.addEventListener('click', () => {
+  toggleOverlay('show');
+  start();
   loadScript('modules/terminal.js');
+  setTimeout(() => {
+    toggleOverlay('hide');
+  }, 1200);
 });
 
 textAlign.addEventListener('input', () => {
@@ -680,13 +696,13 @@ const createCategoryButton = () => {
 
   const handleCategoryButtonClick = (event) => {
     categoryButtons.forEach((button) => {
-        button.style.backgroundColor = '#ffffff00';
+      button.classList.remove('activeCategory');
     });
-
-    event.target.style.backgroundColor = 'var(--leadingColor2)';
-
+  
+    event.target.classList.add('activeCategory');
+  
     activeCategory = parseInt(event.target.getAttribute('id').split('categoryButton')[1]);
-
+  
     document.querySelectorAll('.categoryArea').forEach(e => {
       e.style.display = 'none';
     });
@@ -818,3 +834,4 @@ function toggleCSS() {
     cssLoaded = true;
   }
 }
+

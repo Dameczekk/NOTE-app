@@ -26,10 +26,13 @@ section, nav {
 }
 
 .font,
-.noteStatus,
+.notesStatus,
 #searchInput0 { color: #ffffff; }
 
-.categoryButton { color: #ffffff; }
+.categoryButton { 
+  color: #ffffff;
+  background-color: #00000000;
+}
 
 .module {
   background-color: #252525d4;
