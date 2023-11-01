@@ -899,9 +899,7 @@ nav {
   display: block;
 }
 
-.noteStatus {
-  margin: 10px 0 5px 0;
-}
+.notesStatus { margin: 10px 0 5px 0; }
 
 #context-menu {
   z-index: 3;
@@ -950,3 +948,4 @@ nav {
 }
 
 .elements label { margin: 0 0 0 5px; }
+

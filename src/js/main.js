@@ -57,6 +57,7 @@ let Allthumbnails = [];
 let dates = [];
 let categoryButtons = [categoryButton0];
 let categoryAreas = [categoryArea0];
+let projectsInCategories = [0];
 
 let notes = 0;
 let newNoteId = 0;
@@ -214,10 +215,12 @@ const createNewThumbnail = () => {
 const saveDates = () => {
   let date = new Date();
 
-  dates.push(date.getDate() + ' ' + (date.getMonth() + 1) + ' '+ date.getFullYear());
+  dates.push(date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear());
 }
 
 const createNewNote = () => {
+  const noteStatus = document.querySelector(`#notesStatus${activeCategory}`);
+
   createNewSection();
   createNewThumbnail();
   saveDates();
@@ -227,6 +230,12 @@ const createNewNote = () => {
   newNoteId++;
   newThumbnailId++;
   selectedItemId = (newNoteId - 1);
+
+  projectsInCategories[activeCategory]++;
+
+  projectsInCategories[activeCategory] >= 1 
+  ? noteStatus.textContent = 'Your notes'
+  : noteStatus.textContent = 'Nothing here yet!';
 }
 
 createNewNoteButton.addEventListener('click', () => {
@@ -695,11 +704,11 @@ const createCategoryArea = () => {
   const el = categoryAreaPattern.content.cloneNode(true);
 
   const categoryArea = el.querySelector('.categoryArea');
-  const noteStatus = el.querySelector('.noteStatus');
+  const noteStatus = el.querySelector('.notesStatus');
   const thumbnails = el.querySelector('.thumbnails');
 
   categoryArea.setAttribute('id', `categoryArea${newCategoryId}`);
-  noteStatus.setAttribute('id', `noteStatus${newCategoryId}`);
+  noteStatus.setAttribute('id', `notesStatus${newCategoryId}`);
   thumbnails.setAttribute('id', `thumbnails${newCategoryId}`);
 
   categoryAreas.push(document.querySelector(`#categoryArea${newCategoryId}`));
@@ -710,6 +719,8 @@ const createCategoryArea = () => {
 const createNewCategory = () => {
   createCategoryButton();
   createCategoryArea();
+
+  projectsInCategories.push(0);
 
   newCategoryId++;
 }

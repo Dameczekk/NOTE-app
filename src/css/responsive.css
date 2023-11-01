@@ -35,4 +35,8 @@
   }
 
   .extensionsContainer h1 { border-radius: 0; }
+
+  .note .container {
+    padding: 10px;
+  }
 }
