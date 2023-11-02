@@ -15,6 +15,7 @@ const cancel2 = document.querySelector('#cancel2');
 const cancel3 = document.querySelector('#cancel3');
 const cancel4 = document.querySelector('#cancel4');
 
+const confirm1 = document.querySelector('#confirm1');
 const confirm2 = document.querySelector('#confirm2');
 const confirm3 = document.querySelector('#confirm3');
 const confirm4 = document.querySelector('#confirm4');
@@ -68,11 +69,14 @@ let selectedItemId = null;
 let lineNumber = 0;
 let columnNumber = 0;
 let scoringAllow = false;
-let darkThemeAllow = false;
 let activeCategory = 0;
+
+let pre_darkThemeAllow = false;
+let darkThemeAllow = false;
 
 let toolBarVisible = false;
 let switch0Toggle = true;
+let switch1Toggle = true;
 
 const createNewSection = () => {
   const notePattern = document.querySelector('.notePattern');
@@ -327,7 +331,10 @@ filters.addEventListener('click', () => openModal('0'));
 
 cancel0.addEventListener('click', () => closeModal('0'));
 
-button1.addEventListener('click', () => openModal('1'));
+button1.addEventListener('click', () => {
+  switch1Toggle = true;
+  openModal('1');
+});
 
 cancel1.addEventListener('click', () => closeModal('1'));
 
@@ -783,21 +790,40 @@ const captureData = () => {
 cancel4.addEventListener('click', () =>  closeModal('5'));
 confirm4.addEventListener('click', () =>  closeModal('5'));
 
-switch1.addEventListener('click', () => {
-  const circle = switch1.querySelector('.circle');
-  const toolBar = document.querySelector('#toolBar');
+const switchControl = (pre_variable, toggleVar, obj) => {
+  const circle = obj.querySelector('.circle');
 
-  if (switch0Toggle) {
+  if (toggleVar) {
     circle.style.margin = '0 0 0 60%';
     circle.style.background = 'var(--leadingColor)';
-    switch1.style.background = 'var(--leadingColor2)';
-    darkThemeAllow = true;
+    obj.style.background = 'var(--leadingColor2)';
+    pre_variable = true;
   } else {
     circle.style.margin = '0';
     circle.style.background = '';
-    switch1.style.background = '';
-    darkThemeAllow = false;
+    obj.style.background = '';
+    pre_variable = false;
   }
+}
+
+switch1.addEventListener('click', () => {
+  switchControl(pre_darkThemeAllow, switch1Toggle, switch1);
+  switch1Toggle = !switch1Toggle;
+});
+
+cancel1.addEventListener('click', () => {
+  pre_darkThemeAllow = false;
+  darkThemeAllow = false;
+
+  switch1Toggle = pre_darkThemeAllow;
+
+  switchControl(pre_darkThemeAllow, switch1Toggle, switch1);
+
+  closeModal('1');
+});
+
+confirm1.addEventListener('click', () => {
+  darkThemeAllow = pre_darkThemeAllow;
 
   if (darkThemeAllow) {
     start();
@@ -810,8 +836,9 @@ switch1.addEventListener('click', () => {
       toggleCSS();
     }, 1300);
   }
-  switch0Toggle = !switch0Toggle;
-})
+
+  closeModal('1');
+});
 
 let cssLoaded = false;
 
@@ -834,4 +861,3 @@ function toggleCSS() {
     cssLoaded = true;
   }
 }
-
