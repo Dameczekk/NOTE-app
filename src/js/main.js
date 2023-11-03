@@ -53,6 +53,11 @@ const menuView = document.querySelector('#view');
 const menuInfo = document.querySelector('#info');
 const menuEdit = document.querySelector('#edit');
 
+const colors = document.querySelector('#colors');
+const color = document.querySelectorAll('.color');
+const selected = document.querySelector('.selected');
+const toolBar = document.querySelector('#toolBar');
+
 let sections = ['section0', 'section1'];
 let Allthumbnails = [];
 let dates = [];
@@ -61,22 +66,28 @@ let categoryAreas = [categoryArea0];
 let projectsInCategories = [0];
 
 let notes = 0;
+
 let newNoteId = 0;
 let newThumbnailId = 0;
+
 let newCategoryId = 1;
-let activeNote = null;
-let selectedItemId = null;
 let lineNumber = 0;
 let columnNumber = 0;
-let scoringAllow = false;
-let activeCategory = 0;
 
 let pre_darkThemeAllow = false;
-let darkThemeAllow = false;
 
+let scoringAllow = false;
+let darkThemeAllow = false;
 let toolBarVisible = false;
+
 let switch0Toggle = true;
 let switch1Toggle = true;
+
+let selectedColor = 0;
+let selectedItemId = null;
+let activeNote = null;
+let activeCategory = 0;
+
 
 const createNewSection = () => {
   const notePattern = document.querySelector('.notePattern');
@@ -377,20 +388,15 @@ const functionalButtons = (num, action) => {
 }
 
 fButton02.addEventListener('click', () => openModal('2'));
-
 cancel2.addEventListener('click', () => closeModal('2'));
 
 const deleteNote = () => {
   const thumbnails = document.querySelector(`#thumbnails${activeCategory}`);
-  const notes = document.querySelector('#notes');
-
   const thumbnail = document.querySelector(`#thumbnail${selectedItemId}`);
   const note = document.querySelector(`#note${selectedItemId}`);
-
   const noteIndex = sections.indexOf(`note${selectedItemId}`);
-  if (noteIndex != -1) {
-    sections[noteIndex] = '--deleted--';
-  }
+  
+  noteIndex != -1 ? sections[noteIndex] = '--deleted--' : '';
 
   thumbnail.style.animation = 'reduce 0.5s forwards';
   setTimeout(() => {
@@ -412,17 +418,25 @@ confirm2.addEventListener('click', () => {
   toolBarVisible = true;
 });
 
-const toolBar = document.querySelector('#toolBar');
+
+const resetToInitialState = () => {
+  tools.style.transform = 'translateX(0px)';
+  fToolBars.forEach((toolbar) => toolBar ? toolbar.style.transform = 'translateX(300px)' : '')
+}
 
 const hideToolBar = (type) => {
+  const noteContainer = document.querySelector(`#note${selectedItemId} .container`);
+
   toolBar.style.transform = 'translate(-320px)';
+  
   if (selectedItemId != null) {
-    if (type == 'manual') {
+    if (type === 'manual') {
       setTimeout(() => {
-        document.querySelector(`#note${selectedItemId} .container`).style.margin = '0 0 0 72px';
+        noteContainer.style.margin = '0 0 0 72px';
       }, 1);
     }
   }
+
   resetToInitialState();
 }
 
@@ -434,12 +448,7 @@ const showToolBar = () => {
 }
 
 fButton00.addEventListener('click', () => {
-  if (toolBarVisible) {
-    showToolBar();
-  } else {
-    hideToolBar('manual');
-  }
-
+  toolBarVisible ? showToolBar() : hideToolBar('manual');
   toolBarVisible = !toolBarVisible;
 });
 
@@ -458,61 +467,51 @@ function switchArea(index) {
     fToolBars[index].style.transform = 'translateX(300px)';
     tools.style.transform = 'translateX(0px)';
   } else if (fToolBars[index]) {
-    // W przeciwnym razie pokaż wybrany obszar funkcji i ukryj #tools
     fToolBars[index].style.transform = 'translateX(0px)';
     tools.style.transform = 'translateX(-300px)';
   }
 }
 
-for (let i = 0; i < fToolBars.length; i++) {
+fToolBars.forEach((toolbar, i) => {
   const button = document.querySelector(`#tool${i}`);
   if (button) {
-    button.addEventListener('click', () => switchArea(i));
+    button.addEventListener('click', () => {
+      if (i == 6) {
+        switchArea(5);
+      } else if (i != 5) {
+        switchArea(i);
+      }
+    });
   }
-}
+});
 
-function resetToInitialState() {
-  tools.style.transform = 'translateX(0px)';
-  for (let i = 0; i < fToolBars.length; i++) {
-    if (fToolBars[i]) {
-      fToolBars[i].style.transform = 'translateX(300px)';
-    }
-  }
-}
+back.forEach((backButton) => backButton.addEventListener('click', () => resetToInitialState()));
 
-for (let i = 0; i < back.length; i++) {
-  back[i].addEventListener('click', () => {
-    resetToInitialState();
-  });
-}
-
-let selectedColor = 0;
-
-const colors = document.querySelector('#colors');
-const color = document.querySelectorAll('.color');
-const selected = document.querySelector('.selected');
-
-for (let i = 0; i < color.length; i++) {
-  color[i].addEventListener('click', () => {
+color.forEach((colorItem, index) => {
+  colorItem.addEventListener('click', () => {
     const parent = selected.parentElement;
 
-    const borderColor = window.getComputedStyle(color[i]).borderColor;
-    const backgroundColor = window.getComputedStyle(color[i]).backgroundColor;
+    const borderColor = window.getComputedStyle(colorItem).borderColor;
+    const backgroundColor = window.getComputedStyle(colorItem).backgroundColor;
+
+    const thumbnail = document.querySelector(`#thumbnail${selectedItemId}`);
+    const noteContainer = document.querySelector(`#note${selectedItemId} .noteContainer`);
+
     selected.style.backgroundColor = borderColor;
 
     parent.removeChild(selected);
-    color[i].appendChild(selected);
+    colorItem.appendChild(selected);
 
-    const id = color[i].id
+    const id = colorItem.id;
     selectedColor = parseInt(id.replace('color', ''));
 
-    document.querySelector(`#note${selectedItemId} .noteContainer`).style.backgroundColor = backgroundColor;
-    document.querySelector(`#note${selectedItemId} .noteContainer`).style.borderColor = borderColor;
+    noteContainer.style.backgroundColor = backgroundColor;
+    noteContainer.style.borderColor = borderColor;
 
-    document.querySelector(`#thumbnail${selectedItemId}`).style.backgroundColor = backgroundColor;
-    document.querySelector(`#thumbnail${selectedItemId}`).style.borderColor = borderColor;
+    thumbnail.style.backgroundColor = backgroundColor;
+    thumbnail.style.borderColor = borderColor;
   });
-}
+});
 
 tool5.addEventListener('click', () => {
   let textToDownload = document.querySelector(`#note${selectedItemId} .noteArea`).value;
@@ -790,34 +789,26 @@ const captureData = () => {
 cancel4.addEventListener('click', () =>  closeModal('5'));
 confirm4.addEventListener('click', () =>  closeModal('5'));
 
-const switchControl = (pre_variable, toggleVar, obj) => {
+const switchControl = (preVariable, toggleVar, obj) => {
   const circle = obj.querySelector('.circle');
 
   if (toggleVar) {
     circle.style.margin = '0 0 0 60%';
     circle.style.background = 'var(--leadingColor)';
     obj.style.background = 'var(--leadingColor2)';
-    pre_variable = true;
   } else {
     circle.style.margin = '0';
     circle.style.background = '';
     obj.style.background = '';
-    pre_variable = false;
   }
+  toggleVar = !toggleVar;
 }
 
 switch1.addEventListener('click', () => {
   switchControl(pre_darkThemeAllow, switch1Toggle, switch1);
-  switch1Toggle = !switch1Toggle;
 });
 
 cancel1.addEventListener('click', () => {
-  pre_darkThemeAllow = false;
-  darkThemeAllow = false;
-
-  switch1Toggle = pre_darkThemeAllow;
-
-  switchControl(pre_darkThemeAllow, switch1Toggle, switch1);
 
   closeModal('1');
 });
@@ -825,20 +816,15 @@ cancel1.addEventListener('click', () => {
 confirm1.addEventListener('click', () => {
   darkThemeAllow = pre_darkThemeAllow;
 
-  if (darkThemeAllow) {
-    start();
-    setTimeout(() => {
-      toggleCSS();
-    }, 1300);
-  } else {
-    start();
-    setTimeout(() => {
-      toggleCSS();
-    }, 1300);
-  }
-
+  darkTheme();
   closeModal('1');
 });
+
+const darkTheme = () => {
+  start();
+
+  darkThemeAllow ? setTimeout(() => toggleCSS(), 1300) : setTimeout(() => toggleCSS(), 1300);
+}
 
 let cssLoaded = false;
 
