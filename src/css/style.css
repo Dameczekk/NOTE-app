@@ -955,3 +955,5 @@ nav {
 
 .elements label { margin: 0 0 0 5px; }
 
+#section2,
+#section4 { display: none; }

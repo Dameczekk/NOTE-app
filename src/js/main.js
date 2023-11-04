@@ -3,6 +3,7 @@ const root = document.querySelector(':root');
 const createNewNoteButton = document.querySelector('#createNewNote');
 const section0 = document.querySelector('#section0');
 const section1 = document.querySelector('#section1');
+const section2 = document.querySelector('#section2');
 
 const button0 = document.querySelector('#button0');
 const button1 = document.querySelector('#button1');
@@ -58,9 +59,20 @@ const color = document.querySelectorAll('.color');
 const selected = document.querySelector('.selected');
 const toolBar = document.querySelector('#toolBar');
 
-let sections = ['section0', 'section1'];
+let sections = ['section0', 'section1', 'section2'];
 let Allthumbnails = [];
 let dates = [];
+
+let nColors = [];
+let nFonts = [];
+let nTitles = [];
+let nTexts = [];
+let nSettings = [[[],[],[[], []]]];
+let nScoring = [];
+
+let sectionsInSections = 2;
+
+
 let categoryButtons = [categoryButton0];
 let categoryAreas = [categoryArea0];
 let projectsInCategories = [0];
@@ -87,6 +99,8 @@ let selectedColor = 0;
 let selectedItemId = null;
 let activeNote = null;
 let activeCategory = 0;
+
+
 
 
 const createNewSection = () => {
@@ -260,7 +274,7 @@ const createNewNote = () => {
 createNewNoteButton.addEventListener('click', () => {
   createNewNote();
 
-  switchSection('section0', sections[(newNoteId + 1)]);
+  switchSection('section0', sections[(newNoteId + sectionsInSections)]);
   functionalButtons('0', 'open');
 });
 
@@ -392,17 +406,21 @@ cancel2.addEventListener('click', () => closeModal('2'));
 
 const deleteNote = () => {
   const thumbnails = document.querySelector(`#thumbnails${activeCategory}`);
+  const notes = document.querySelector('#notes');
+
   const thumbnail = document.querySelector(`#thumbnail${selectedItemId}`);
   const note = document.querySelector(`#note${selectedItemId}`);
+
   const noteIndex = sections.indexOf(`note${selectedItemId}`);
-  
-  noteIndex != -1 ? sections[noteIndex] = '--deleted--' : '';
+  if (noteIndex != -1) {
+    sections[noteIndex] = '--deleted--';
+  }
 
   thumbnail.style.animation = 'reduce 0.5s forwards';
   setTimeout(() => {
-    notes.removeChild(note);
     thumbnails.removeChild(thumbnail);
   }, 500);
+  notes.removeChild(note);
 
   projectsInCategories[activeCategory]--;
 
@@ -612,7 +630,7 @@ const load0 = document.querySelector('#load0');
 load0.addEventListener('click', () => {
   toggleOverlay('show');
   start();
-  loadScript('modules/terminal.js');
+  setTimeout(() => loadScript('modules/terminal.js'), 1100);
   setTimeout(() => {
     toggleOverlay('hide');
   }, 1200);
@@ -847,3 +865,7 @@ function toggleCSS() {
     cssLoaded = true;
   }
 }
+
+button2.addEventListener('click', () => {
+  switchSection('all', 'section2')
+});
