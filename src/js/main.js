@@ -59,6 +59,8 @@ const color = document.querySelectorAll('.color');
 const selected = document.querySelector('.selected');
 const toolBar = document.querySelector('#toolBar');
 
+let name = null;
+
 let sections = ['section0', 'section1', 'section2'];
 let Allthumbnails = [];
 let dates = [];
@@ -869,3 +871,4 @@ function toggleCSS() {
 button2.addEventListener('click', () => {
   switchSection('all', 'section2')
 });
+
